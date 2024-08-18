@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather Tracker</title>
+  <link rel="stylesheet" href="./assets/style.css">
+</head>
+
+<body >
+  <div>
+    <header>
+      Weather Dashboard
+    </header>
+  </div>
+
+  <div>
+    <form id="search-form">
+      <h1>Search for a City:</h1>
+      <input id="search-input" name ="city" type="text" placeholder="Pick a city!">
+      <button type="submit" class="btn">Search</button>
+    </form>
+    <ul id="search-history">
+
+    </ul>
+  </div>
+
+  <div id="results">
+    <!--Current Forecast-->
+    <div id="current-forecast">
+      <h1>
+        Here is today's forecast!
+      </h1>
+      <div id="city"></div>
+      <div id="date"></div>
+      <p>Temperature: <span id="todays-temp"></span></p>
+      <p>Wind: <span id="todays-wind"></span></p>
+      <p>Humidity: <span id="todays-humidity"></span></p>
+    </div>  
+    <div id="daily-forecast">
+      <h3>
+        Here's your city's forecast for the next five days!
+      </h3>
+      <div>
+        <!-- 5 day forecast. -->
+        <article>
+          <h4 class="date">Day 1</h4>
+          <div>
+            <p>Temperature: <span id="day-1-temp"></span></p>
+            <p>Humidity: <span id="day-1-humidity"></span></p>
+            <p>Wind: <span id="day-1-wind"></span></p>
+          </div>
+        </article>
+        <article>
+          <h4 class="date">Day 2</h4>
+          <div>
+            <p>Temperature: <span id="day-2-temp"></span></p>
+            <p>Humidity: <span id="day-2-humidity"></span></p>
+            <p>Wind: <span id="day-2-wind"></span></p>
+          </div>
+        </article>
+        <article>
+          <h4 class="date">Day 3</h4>
+          <div>
+            <p>Temperature: <span id="day-3-temp"></span></p>
+            <p>Humidity: <span id="day-3-humidity"></span></p>
+            <p>Wind: <span id="day-3-wind"></span></p>
+          </div>
+        </article>
+        <article>
+          <h4 class="date">Day 4</h4>
+          <div>
+            <p>Temperature: <span id="day-4-temp"></span></p>
+            <p>Humidity: <span id="day-4-humidity"></span></p>
+            <p>Wind: <span id="day-4-wind"></span></p>
+          </div>
+        </article>
+        <article>
+          <h4 class="date">Day 5</h4>
+          <div>
+            <p>Temperature: <span id="day-5-temp"></span></p>
+            <p>Humidity: <span id="day-5-humidity"></span></p>
+            <p>Wind: <span id="day-5-wind"></span></p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+  <script src="./assets/script.js"></script>
+</body>
+
+</html>
