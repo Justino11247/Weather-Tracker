@@ -40,6 +40,11 @@ function getForecast(lat, lon, apiKey) {
       console.log(data);
       if (data.length === 0) {
         alert("Oops, no weather information found.");
+      } else {
+        // calling of the updateForecast function
+        updateForecast(data, city, currentDate);
+        // calling of the updatedDashboard function
+        updatedDashboard(data);
       }
     })
     .catch(function (error) {
@@ -48,7 +53,6 @@ function getForecast(lat, lon, apiKey) {
     });
     
 }
-
 
 function updateCitySearch(event) {
   event.preventDefault();
@@ -59,6 +63,57 @@ function updateCitySearch(event) {
     searchInput.value = "";
     searchedHistory.push(city);
     localStorage.setItem("searched-history", JSON.stringify(searchedHistory));
+  }
+}
+
+// function to update dashboard section's forecast                           //
+function updateForecast(data, city, currentDate) {
+  // Does any weather data exist and are their any submissions?
+  if (data && data.list && data.list.length > 0) {
+    const dayData = data.list[0];
+    document.getElementById("date").textContent = currentDate; //update date
+    document.getElementById("city").textContent = city; //update city name
+    
+    //Update temp wind and humidity for current date
+    document.getElementById("todays-temp").textContent = `${dayData.main.temp}\u00B0`;
+    document.getElementById("todays-wind").textContent = `${dayData.wind.speed} mph`;
+    document.getElementById("todays-humidity").textContent = `${dayData.main.humidity}%`;
+  } else {
+    // error if no data is available
+    console.error("No weather data is currently available.");
+  }
+}
+
+// update forecasts
+function updatedDashboard(data) {
+  if (data && data.list && data.list.length > 0) {
+    // Loop through 5 forecast entries
+    for (let index = 0; index < 5; index++) {
+      const indexDay = index + 1;
+      // temp updated
+      const tempDayId = "day-" + indexDay + "-temp" ;
+      const tempDay = document.getElementById(tempDayId);
+      if (tempDay) {
+        tempDay.textContent = data.list[index].main.temp + "\u00B0";
+      }
+
+      // wind is updated
+      const windDayId = "day-" + indexDay + "-wind";
+      const windDay = document.getElementById(windDayId);
+      if (windDay) {
+        windDay.textContent = data.list[index].wind.speed + " mph";
+      }
+
+      // humidity is updated
+      const humidityDayId = "day-" + indexDay + "-humidity";
+      const humidityDay = document.getElementById(humidityDayId);
+      if (humidityDay) {
+        humidityDay.textContent = data.list[index].main.humidity + "%";
+      }
+    }
+  } else {
+    // error if no available data
+    console.error("No weather data is currently.");
   }
 }
 
