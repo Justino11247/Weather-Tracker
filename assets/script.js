@@ -28,7 +28,7 @@ function getCityLocation(city, apiKey) {
 }
 
 // function to get forecast data
-function getForecast(lat, lon, apiKey) {
+function getForecast(lat, lon, apiKey, city) {
   let currentDate = new Date().toLocaleDateString();
   fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`)
     // JSON conversion
@@ -63,6 +63,8 @@ function updateCitySearch(event) {
     searchInput.value = "";
     searchedHistory.push(city);
     localStorage.setItem("searched-history", JSON.stringify(searchedHistory));
+    localStorage.setItem("last-searched", city);
+    renderSearch();
   }
 }
 
@@ -117,5 +119,40 @@ function updatedDashboard(data) {
   }
 }
 
+function renderSearch() {
+  // The search history element is cleared
+  searchHistory.innerHTML = "";
 
+  // For loop created to iterate over every city in the search history and generate a button for each city.
+  for (let city of searchedHistory) {
+    // Button creation per city element
+    const searchButton = document.createElement("button");
+    // searchButton class for css styling
+    searchButton.setAttribute("class", "searchButton");
+    // city name will be the text content for each button
+    searchButton.textContent = city;
+    searchButton.addEventListener("click", function () {
+      // call getCityLocation function when a city button is clicked
+      getCityLocation(city, apiKey);
+    });
+    // Appends the searchButtons under the search history section
+    searchHistory.append(searchButton);
+  }
+}
+
+function searchHistoryHandler(event) {
+  const cityName = event.target.textContent;
+  getCityLocation(cityName, apiKey);
+}
+
+// Ensures to display search history if there is at least 1 searchButton in the search history to render.
+if (searchedHistory.length > 0) {
+  renderSearch();
+}
+
+// Event listeners
 searchForm.addEventListener("submit", updateCitySearch);
+// Ensures that city buttons from previous searches are clickable.
+searchHistory.addEventListener("click", searchHistoryHandler);
+
+
