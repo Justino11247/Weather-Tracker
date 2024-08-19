@@ -128,7 +128,7 @@ function renderSearch() {
     // Button creation per city element
     const searchButton = document.createElement("button");
     // searchButton class for css styling
-    searchButton.setAttribute("class", "searchButton");
+    searchButton.setAttribute("class", "m-1");
     // city name will be the text content for each button
     searchButton.textContent = city;
     searchButton.addEventListener("click", function () {
